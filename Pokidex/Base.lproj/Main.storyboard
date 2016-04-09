@@ -3,7 +3,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Pokemon Solid.ttf">
+            <string>PokemonSolidNormal</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -17,11 +23,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="Q5u-uG-6PV">
-                                <rect key="frame" x="0.0" y="58" width="600" height="542"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="Q5u-uG-6PV">
+                                <rect key="frame" x="0.0" y="60" width="600" height="540"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UL6-ls-xKV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UL6-ls-xKV">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                 <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -29,8 +35,8 @@
                                     <constraint firstAttribute="height" constant="60" id="iQZ-Kr-BKD"/>
                                 </constraints>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yHe-p9-i7H">
-                                <rect key="frame" x="20" y="127" width="560" height="453"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yHe-p9-i7H">
+                                <rect key="frame" x="20" y="124" width="560" height="456"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cIZ-Du-rdM">
                                     <size key="itemSize" width="100" height="100"/>
@@ -46,8 +52,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="297" translatesAutoresizingMaskIntoConstraints="NO" id="8Bb-ey-Mv5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="78"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="297" translatesAutoresizingMaskIntoConstraints="NO" id="8Bb-ey-Mv5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="79"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uE-zB-dad">
@@ -79,11 +85,21 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <searchBar contentMode="redraw" misplaced="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="uhH-CY-KyP">
-                                <rect key="frame" x="0.0" y="58" width="600" height="44"/>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="uhH-CY-KyP">
+                                <rect key="frame" x="0.0" y="60" width="600" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="0.2973236908783784" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokemon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgm-ve-8FP">
+                                <rect key="frame" x="125" y="9" width="350" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="Vkl-my-n4o"/>
+                                    <constraint firstAttribute="width" constant="350" id="ZrQ-8c-kBx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PokemonSolidNormal" family="Pokemon Solid" pointSize="33"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -94,6 +110,8 @@
                             <constraint firstItem="UL6-ls-xKV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Ian-vv-yrn"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yHe-p9-i7H" secondAttribute="bottom" constant="20" id="Vqd-ON-KjL"/>
                             <constraint firstItem="Q5u-uG-6PV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cFn-pJ-rJ2"/>
+                            <constraint firstItem="wgm-ve-8FP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cyi-YT-BTl"/>
+                            <constraint firstItem="wgm-ve-8FP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="9" id="dfe-mh-saf"/>
                             <constraint firstItem="uhH-CY-KyP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="edj-Ue-ew2"/>
                             <constraint firstAttribute="trailing" secondItem="Q5u-uG-6PV" secondAttribute="trailing" id="feW-y5-8OY"/>
                             <constraint firstItem="uhH-CY-KyP" firstAttribute="top" secondItem="UL6-ls-xKV" secondAttribute="bottom" id="fmL-PE-Y2u"/>
