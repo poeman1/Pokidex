@@ -7,18 +7,75 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var pokemon = [Pokemon]()
+    var filteredPokemon = [Pokemon]()
+    var musicPlayer = AVAudioPlayer()
+    var searchStarted = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collection.delegate = self
         collection.dataSource = self
+        searchBar.delegate = self
+        searchBar.delegate = self
+        searchBar.returnKeyType = UIReturnKeyType.Done
         parseCSV()
+        initAudio()
        
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        view.endEditing(true)
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text == nil || searchBar.text == "" {
+            searchStarted = false
+            collection.reloadData()
+            view.endEditing(true)
+        } else {
+            searchStarted = true
+            let search = searchBar.text!.lowercaseString
+            filteredPokemon = pokemon.filter({$0.name.rangeOfString(search) != nil})
+            collection.reloadData()
+        }
+        
+    }
+    
+    @IBAction func pauseMusicButton(sender: AnyObject) {
+        
+        if musicPlayer.playing {
+            musicPlayer.pause()
+        } else {
+            initAudio()
+        }
+        
+    }
+    func initAudio() {
+        
+        let path = NSBundle.mainBundle().pathForResource("music", ofType: "mp3")
+        
+        do {
+            
+            musicPlayer = try AVAudioPlayer(contentsOfURL: NSURL(string: path!)!)
+            musicPlayer.prepareToPlay()
+            musicPlayer.numberOfLoops = -1
+            musicPlayer.play()
+            
+        } catch let err as NSError {
+            
+            print(err.debugDescription)
+            
+        }
+        
     }
     
     func parseCSV() {
@@ -49,7 +106,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PokeCell", forIndexPath: indexPath) as? PokeCell {
             
-            let poke = pokemon[indexPath.row]
+            let poke: Pokemon!
+            
+            if searchStarted {
+                poke = filteredPokemon[indexPath.row]
+            } else {
+                poke = pokemon[indexPath.row]
+            }
+            
             cell.configuredCell(poke)
             return cell
         } else {
@@ -66,6 +130,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if searchStarted {
+            return filteredPokemon.count
+        }
         return pokemon.count
     }
     
