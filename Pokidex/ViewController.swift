@@ -28,7 +28,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         searchBar.returnKeyType = UIReturnKeyType.Done
         parseCSV()
         initAudio()
-       
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -55,7 +54,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if musicPlayer.playing {
             musicPlayer.pause()
         } else {
-            initAudio()
+            musicPlayer.play()
         }
         
     }
@@ -68,7 +67,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             musicPlayer = try AVAudioPlayer(contentsOfURL: NSURL(string: path!)!)
             musicPlayer.prepareToPlay()
             musicPlayer.numberOfLoops = -1
-            musicPlayer.play()
+            //musicPlayer.play()
             
         } catch let err as NSError {
             
@@ -121,7 +120,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        let poke: Pokemon!
+        
+        if searchStarted {
+            poke = filteredPokemon[indexPath.row]
+        } else {
+            poke = pokemon[indexPath.row]
+        }
+        
+        performSegueWithIdentifier("detailsViewController", sender: poke)
         
     }
     
@@ -139,6 +148,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(105.0, 105.0)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "detailsViewController" {
+            if let detailsVC = segue.destinationViewController as? detailsViewController {
+                if let poke = sender {
+                    detailsVC.pokemon = poke as! Pokemon
+                }
+            }
+        }
     }
 }
 
