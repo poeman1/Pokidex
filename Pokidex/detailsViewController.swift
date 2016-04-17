@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class detailsViewController: UIViewController {
     
@@ -32,7 +33,37 @@ class detailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pokeNameLabel.text = pokemon.name
+        pokeNameLabel.text = pokemon.name.capitalizedString
+        mainImage.image = UIImage(named: "\(pokemon.pokedexID)")
+        
+        pokemon.downloadPokemonDetails { () -> () in
+            
+            self.updateUI()
+            
+        }
+        
+    }
+    
+    func updateUI() {
+        
+        descriptLabel.text = pokemon.description
+        typeLabel.text = pokemon.type
+        defenseLabel.text = pokemon.defense
+        heightLabel.text = pokemon.height
+        weightLabel.text = pokemon.weight
+        baseAttackLabel.text = pokemon.attack
+        
+        
+        evolutionLabel.text = "Next Evolution: \(pokemon.nextEvolution)"
+        idLabel.text = "\(pokemon.pokedexID)"
+        evoImage1.image = UIImage(named: "\(pokemon.pokedexID)")
+        
+        if pokemon.nextEvolutionID == "None" {
+            evoImage2.hidden = true
+        } else {
+            evoImage2.hidden = false
+            evoImage2.image = UIImage(named: "\(pokemon.nextEvolutionID)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,14 +72,5 @@ class detailsViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
